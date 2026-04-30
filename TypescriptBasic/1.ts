@@ -109,28 +109,130 @@
 //Gerenericos en type paquete<t>
 // 1. DEFINICIÓN DEL GENÉRICO
 // La <t> es un "parámetro de tipo". Funciona como un molde vacío
-// que se rellenará con un tipo real cuando creemos una variable.
-type Paquete<t> = {
-    remitente: string;
-    contenido: t; // El tipo de 'contenido' dependerá de lo que pasemos a <t>
-};
+// // que se rellenará con un tipo real cuando creemos una variable.
+// type Paquete<t> = {
+//     remitente: string;
+//     contenido: t; // El tipo de 'contenido' dependerá de lo que pasemos a <t>
+// };
 
-// 2. DEFINICIÓN DE LOS DATOS ESPECÍFICOS
-type Libro = { titulo: string; autor: string };
-type Ropa = { tipo: string; talla: string };
+// // 2. DEFINICIÓN DE LOS DATOS ESPECÍFICOS
+// type Libro = { titulo: string; autor: string };
+// type Ropa = { tipo: string; talla: string };
 
-// Creamos un objeto que sigue la estructura de Libro
-let Libro1: Libro = {
-    titulo: "La tregua", 
-    autor: "Mario Benedetti"
-};
+// // Creamos un objeto que sigue la estructura de Libro
+// let Libro1: Libro = {
+//     titulo: "La tregua", 
+//     autor: "Mario Benedetti"
+// };
 
-// 3. USO DEL GENÉRICO
-// Al poner <Libro>, le decimos a TypeScript: 
-// "Para esta variable, la 't' de Paquete es un 'Libro'".
-let paquete1: Paquete<Libro> = {
-    remitente: "Carlos",
-    contenido: Libro1 // TS valida que Libro1 coincida con el tipo Libro
-};
+// // 3. USO DEL GENÉRICO
+// // Al poner <Libro>, le decimos a TypeScript: 
+// // "Para esta variable, la 't' de Paquete es un 'Libro'".
+// let paquete1: Paquete<Libro> = {
+//     remitente: "Carlos",
+//     contenido: Libro1 // TS valida que Libro1 coincida con el tipo Libro
+// };
 
-console.log(paquete1);
+// console.log(paquete1);
+// ejercio en funciones 
+// 1. Definimos la función indicando que recibe un arreglo de T
+// function procesarLista<T>(lista: T[]): void {
+    
+//     for (const elemento of lista) {
+//         console.log("Procesando:", typeof elemento);//devuelve un string con el tipo del tipo de dato 
+//         if (typeof elemento === "number") {
+//             console.log("Es un número", elemento);
+//             break
+//         } 
+        
+//         if (typeof elemento === "string") {
+//             console.log("Es un texto", elemento);
+//             break
+//         }
+//     }
+// }
+
+// // Pruebas
+// const misNumeros = [1, 2, 3];
+// procesarLista(misNumeros);
+
+// const misNombres = ["Cris", "Maria"];
+// procesarLista(misNombres);
+
+// //INTERSECTION TYPE 
+// // definimos un nuevo tipo que deve tener si o si las propiedades de los tipos que le pasemos ejemplo : 
+
+// type Nombre ={nombre:string};
+// type Edad={edad:number};
+// type PersonaCompleta =Nombre & Edad
+
+// let usuario : PersonaCompleta ={
+//     nombre : "pepe",
+//     edad : 21 
+// }
+
+
+
+
+
+
+// //Type Indexing
+// //extrae una de los propiedades de un tipo ya creado para usarlo en otro indexandolo 
+// type Producto = {
+//     id: number,
+//     info: {
+//         nombre: string,
+//         precio: number
+//     }
+// };
+
+// // Queremos extraer el tipo de 'info'
+// type ProductoInfo = Producto["info"]; 
+
+// // Ahora puedo usarlo:
+// const detalle: ProductoInfo = {
+//     nombre: "Laptop",
+//     precio: 1200
+// };
+
+// // otor ejemplo 
+
+// type Pc ={
+//     propietario : string,
+//     componente : {
+//         memoria : number
+//         licencia : string
+//     }
+// }
+
+// type PComponentes = Pc["componente"];
+
+// let detalles : PComponentes = {
+//     memoria :128,
+//     licencia:"dvdfkmmv4"
+// }
+
+
+// //type of 
+// //crea un tipo a parti de un objeto o dato ya creado 
+// //al usarse en un dato devuelve un string con su tipo 
+// //al usarse en un objeto devuelve un type con la composicion del objeto 
+
+// const configuracionGlobal = {
+//     env: "production",
+//     puerto: 3000,
+//     debug: false
+// };
+
+// // ¡TypeScript crea el tipo automáticamente mirando el objeto!
+// type Config = typeof configuracionGlobal;
+
+// const otraConfig: Config = {
+//     env: "local",
+//     puerto: 8080,
+//     debug: true
+// };
+// // con un tipo de dato 
+
+// let carro = "subaru"
+// console.log(typeof carro )//string
