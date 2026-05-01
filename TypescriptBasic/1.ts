@@ -236,3 +236,82 @@
 
 // let carro = "subaru"
 // console.log(typeof carro )//string
+
+//ejercios 
+
+// const curso = {
+//     titulo: "Master en TS",
+//     duracion: 10,
+//     clases: ["Intro", "Generics"]
+// };
+// //¿Cómo crearías un tipo llamado TipoCurso usando typeof?
+
+// // ¿Cómo crearías un tipo llamado TipoClases que extraiga solo el tipo de la
+// //  propiedad clases del objeto curso usando Type Indexing?
+
+// type TipoCurso = typeof curso ;
+
+// const Nuevocurso ={
+    
+//     titulo: "Master of the universe",
+//     duracion: 100,
+//     clases: ["Intro", "Generics"]
+// }
+
+// type TipoClases = TipoCurso["clases"]
+
+
+//ReturnType
+//A veces no te importa el objeto, sino lo que una función devuelve. T
+// ypeScript tiene una utilidad llamada ReturnType.
+
+// function CrearUsuario(){
+//     return { id: 1, username: "Cris" };
+// }
+
+// type UsuarioNuevo = ReturnType<typeof CrearUsuario>;
+
+// let usuario : UsuarioNuevo = {
+//     id:1,
+//     username:"pepe"
+// }
+
+// console.log(usuario)
+
+
+//Arrays en type 
+//para crear arrays como todo tipo de dato se tiene que definir que tipo de 
+//dato tendra adentro ejemplo:
+//por defecto crea un array con tipo any pero no apobrecha las ventajas del lenguaje
+
+// let lenguajes =[]
+
+// let lenguajes :string[] =[]  // solo strings dentro del array
+
+// let lenguajes : string | number =[]  //toda el arreglo tiene que ser de uno de los tipos 
+
+
+//let lenguajes :(string|number)[]=[] //el contenido de cada elementos puede ser cualquiere de los tipos
+
+
+// lenguajes.push("ingles")
+
+// lenguajes.push(21)
+
+//ultimo ejercisio
+
+// function obtenerEstado() {
+//     return {
+//         jugador: "Cris",
+//         puntos: 100,
+//         posicion: [5, 10] as [number, number] // Esto es una tupla
+//     };
+// }
+
+// //Crea un tipo Estado usando ReturnType.
+
+// //Crea un tipo Posicion usando Type Indexing sobre el tipo Estado.
+
+// type Estado = ReturnType<typeof obtenerEstado>;
+// type Posicion = Estado["posicion"];
+
