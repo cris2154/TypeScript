@@ -92,38 +92,53 @@
 
 // //ejercisio 
 
- const enum Clase {
-     Mago = "MAGO",
-     Guerrero = "GUERRERO",
-     Arquero = "ARQUERO"
- }
+//  const enum Clase {
+//      Mago = "MAGO",
+//      Guerrero = "GUERRERO",
+//      Arquero = "ARQUERO"
+//  }
 
- interface Heroe {   
-     nombre: string;
-     tipo: Clase;
-}
-
-// function activarHabilidad(personaje : Heroe) {
-//     if(personaje.tipo === "ARQUERO"){
-//         console.log("tu personaje es ",personaje.tipo)
-//     }else(console.log("tu personaje no es un arquero"))
+//  interface Heroe {   
+//      nombre: string;
+//      tipo: Clase;
 // }
 
-// let Martin : Heroe ={
-//     nombre: "martin",
-//     tipo : Clase.Arquero
+// // function activarHabilidad(personaje : Heroe) {
+// //     if(personaje.tipo === "ARQUERO"){
+// //         console.log("tu personaje es ",personaje.tipo)
+// //     }else(console.log("tu personaje no es un arquero"))
+// // }
+
+// // let Martin : Heroe ={
+// //     nombre: "martin",
+// //     tipo : Clase.Arquero
+// // }
+
+// // activarHabilidad(Martin)
+
+
+// // Imaginemos que esto viene de una base de datos externa
+// const respuestaApi: any = { nombre: "Legolas", tipo: "ARQUERO" };
+
+// // Le decimos a TS: "Confía en mí, esto es un Heroe"
+// const nuevoHeroe = respuestaApi as Heroe; 
+
+// console.log(nuevoHeroe.tipo); // Ahora TS nos da autocompletado
+
+// let datoDesconocido : any = 100;
+// let puntos = datoDesconocido as number
+
+
+// const elemento = document.getElementById("mi-id");//el typo por defecto del elemento el htmlelement 
+// //si yo quiera ejecutar funciones o propiedas de imputelement no me dejaria por eso usamos instanceof 
+
+
+// if (elemento instanceof HTMLInputElement) {
+//     // Narrowing exitoso: TS sabe que es un INPUT ⌨️
+//     console.log(input.value); 
+// } else if (elemento instanceof HTMLAnchorElement) {
+//     // Narrowing exitoso: TS sabe que es un ENLACE 🔗
+//     console.log(elemento.href);
 // }
 
-// activarHabilidad(Martin)
 
-
-// Imaginemos que esto viene de una base de datos externa
-const respuestaApi: any = { nombre: "Legolas", tipo: "ARQUERO" };
-
-// Le decimos a TS: "Confía en mí, esto es un Heroe"
-const nuevoHeroe = respuestaApi as Heroe; 
-
-console.log(nuevoHeroe.tipo); // Ahora TS nos da autocompletado
-
-let datoDesconocido : any = 100;
-let puntos = datoDesconocido as number
