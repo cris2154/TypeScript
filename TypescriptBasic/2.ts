@@ -92,16 +92,16 @@
 
 // //ejercisio 
 
-//  const enum Clase {
-//      Mago = "MAGO",
-//      Guerrero = "GUERRERO",
-//      Arquero = "ARQUERO"
-//  }
+//   const enum Clase {
+//       Mago = "MAGO",
+//       Guerrero = "GUERRERO",
+//       Arquero = "ARQUERO"
+//   }
 
-//  interface Heroe {   
-//      nombre: string;
-//      tipo: Clase;
-// }
+//   interface Heroe {   
+//       nombre: string;
+//       tipo: Clase;
+//  }
 
 // // function activarHabilidad(personaje : Heroe) {
 // //     if(personaje.tipo === "ARQUERO"){
@@ -141,4 +141,33 @@
 //     console.log(elemento.href);
 // }
 
+// // Type Predicate Type Guards (Guardias de Tipo)
+// function esHeroe(objeto: any): objeto is Heroe {
+//     return (
+//         typeof objeto.nombre === "string" &&
+//         (objeto.tipo === Clase.Mago || 
+//          objeto.tipo === Clase.Guerrero || 
+//          objeto.tipo === Clase.Arquero)
+//     );
+// }
+
+// const datosRecibidos: any = { nombre: "Aragorn", tipo: "GUERRERO" };
+
+// if (esHeroe(datosRecibidos)) {
+//     // ✨ Aquí adentro, TypeScript sabe que datosRecibidos es Heroe
+//     console.log(datosRecibidos.tipo); 
+// } else {
+//     console.log("Los datos no tienen el formato de un héroe");
+// }
+
+// //ejercicio 
+// interface Estadisticas {
+//     hp: number;
+// }
+
+// function esEstadistica(obj: any): obj is Estadisticas {
+//     return (
+//             typeof obj.hp ==="number"
+//     );
+// }
 
