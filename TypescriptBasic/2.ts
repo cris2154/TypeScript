@@ -1,173 +1,108 @@
- 
-// //norrowing o estrechamiento de tipo 
-// //basicamente typescript deduce que tipo de dato es al momento de crear una llamada de funcion 
+/**
+ * TEMA 1: NARROWING (Estrechamiento de tipos)
+ * Es la capacidad de TypeScript para deducir un tipo más específico 
+ * dentro de una estructura de control (if, switch, etc.).
+ */
 
+// 1.1 Narrowing con typeof (Primitivos)
+function procesarDato(valor: string | number): void {
+    if (typeof valor === "string") {
+        // Aquí TS sabe que 'valor' es estrictamente string
+        console.log("Longitud del texto:", valor.length);
+    } else {
+        // Aquí TS sabe que 'valor' es number
+        console.log("El número es:", valor);
+    }
+}
 
-// function ProcesarDato(valor : string|number):void{
-//     if(typeof valor === "string"){
-//         console.log(valor.length)
-//     }
-// }
+// 1.2 Narrowing por Veracidad (Truthiness)
+function saludar(nombre: string | null) {
+    if (nombre) {
+        // Si entra aquí, 'nombre' no es null ni una cadena vacía
+        console.log(`Hola ${nombre.toUpperCase()}`);
+    }
+}
 
-// ProcesarDato("pepe")
-// function saludar(nombre: string | null) {
-//   if (nombre) {
-//     // Si 'nombre' existe (no es null ni ""), TS lo trata como string
-//     console.log(`Hola ${nombre.toUpperCase()}`);
-//   }
-// }
-// saludar("pepe")
+// 1.3 Operador 'in' (Chequeo de propiedades en objetos)
+type Pajaro = { volar: () => void };
+type Pez = { nadar: () => void };
 
-// //en objetos 
-// type Pajaro = { volar: () => void };
-// type Pez = { nadar: () => void };
+function mover(animal: Pajaro | Pez) {
+    if ("volar" in animal) {
+        // TS deduce que es un Pajaro
+        animal.volar();
+    } else {
+        // TS deduce que es un Pez
+        animal.nadar();
+    }
+}
 
-// function mover(animal: Pajaro | Pez) {
-//   if ("volar" in animal ) {
-//     // in si la propiedad volar esta en uno de los typos espesicifacos en animal
-//     // Aquí TS sabe que es un Pajaro
-//     animal.volar();
-//   } else {
-//     // Aquí sabe que es un Pez
-//     animal.nadar();
-//   }
-// }
+/**
+ * TEMA 2: ENUMS (Enumeradores)
+ * Permiten definir un conjunto de constantes con nombre, 
+ * facilitando la lectura del código.
+ */
 
-// //ejercisio
-// function obtenerLongitud(dato: string | number) {
-//     // 1. ¿Cómo comprobamos si 'dato' es un arreglo?
-//     if (typeof dato === "number") {
-//         // Aquí TS sabe que es string[] 
-//         console.log("tu numero es :",dato);
-//     } else {
-//         // 2. ¿Qué sabe TS que es 'dato' aquí dentro?
-//         console.log("Cantidad de letras:", dato.length);
-//     }
-// }
+enum EstadoTransaccion {
+    Pendiente = "Pendiente",
+    Pagado = "Pagado",
+    Error = "Error"
+}
 
-// let cosas = ["pepe","carlos"]
-// let cosa = "peluquero"
-// let numeroRandon = 88
+const miPago = EstadoTransaccion.Pagado;
 
-// obtenerLongitud(numeroRandon)
+/**
+ * TEMA 3: INTERFACES VS TYPES
+ * Las interfaces permiten "fusión de declaración", los tipos usan "intersecciones".
+ */
 
-// //enums o enumeradores 
-// //genera una lista finita de datos enumerandorlos desde 0 o definiendo su respuesta con =
-// enum EstadoTransaccion {
-//     Pendiente="Pendiente", // 0
-//     Pagado="Pagado",    // 1
-//     Error = "errpr"     // 2
-// }
+// Fusión de interfaces: se unen automáticamente
+interface Personaje {
+    nombre: string;
+}
+interface Personaje {
+    vida: number;
+}
 
-// let miPago = EstadoTransaccion.Pagado;
+// Intersección de tipos: combina estructuras
+type Guerrero = {
+    ataque: number;
+} & Personaje;
 
-// if (miPago === EstadoTransaccion.Pagado) {
-//     console.log(EstadoTransaccion.Pagado);//"1"//ahora es "pagado" al definir su valor
-// }
+/**
+ * TEMA 4: ASERCIONES Y GUARDIAS DE TIPO (Type Guards)
+ * Se usan cuando necesitamos asegurar a TS que un objeto cumple un contrato.
+ */
 
-// // Con INTERFACE
-// interface Personaje {
-//     nombre: string;
-// }
+const enum Clase {
+    Mago = "MAGO",
+    Guerrero = "GUERRERO",
+    Arquero = "ARQUERO"
+}
 
-// interface Personaje { // Se fusiona con la anterior
-//     vida: number;
-// }
+interface Heroe {
+    nombre: string;
+    tipo: Clase;
+}
 
-// // Con TYPE
-// type Guerrero = {
-//     ataque: number;
-// } & Personaje; // Usamos intersección para "heredar"
+// 4.1 Aserción de tipo (Type Assertion)
+// Útil cuando recibimos datos externos (APIs) de tipo 'any'
+const respuestaApi: any = { nombre: "Legolas", tipo: "ARQUERO" };
+const nuevoHeroe = respuestaApi as Heroe;
 
-// let carlos : Personaje = {
-//     nombre : "pepe",
-//     vida : 100
-// }
-
-// let pedro : Guerrero ={
-//     ataque : 55,
-//     nombre : "pedro",
-//     vida : 100
-// }
-
-// //ejercisio 
-
-//   const enum Clase {
-//       Mago = "MAGO",
-//       Guerrero = "GUERRERO",
-//       Arquero = "ARQUERO"
-//   }
-
-//   interface Heroe {   
-//       nombre: string;
-//       tipo: Clase;
-//  }
-
-// // function activarHabilidad(personaje : Heroe) {
-// //     if(personaje.tipo === "ARQUERO"){
-// //         console.log("tu personaje es ",personaje.tipo)
-// //     }else(console.log("tu personaje no es un arquero"))
-// // }
-
-// // let Martin : Heroe ={
-// //     nombre: "martin",
-// //     tipo : Clase.Arquero
-// // }
-
-// // activarHabilidad(Martin)
-
-
-// // Imaginemos que esto viene de una base de datos externa
-// const respuestaApi: any = { nombre: "Legolas", tipo: "ARQUERO" };
-
-// // Le decimos a TS: "Confía en mí, esto es un Heroe"
-// const nuevoHeroe = respuestaApi as Heroe; 
-
-// console.log(nuevoHeroe.tipo); // Ahora TS nos da autocompletado
-
-// let datoDesconocido : any = 100;
-// let puntos = datoDesconocido as number
-
-
-// const elemento = document.getElementById("mi-id");//el typo por defecto del elemento el htmlelement 
-// //si yo quiera ejecutar funciones o propiedas de imputelement no me dejaria por eso usamos instanceof 
-
-
-// if (elemento instanceof HTMLInputElement) {
-//     // Narrowing exitoso: TS sabe que es un INPUT ⌨️
-//     console.log(input.value); 
-// } else if (elemento instanceof HTMLAnchorElement) {
-//     // Narrowing exitoso: TS sabe que es un ENLACE 🔗
-//     console.log(elemento.href);
-// }
-
-// // Type Predicate Type Guards (Guardias de Tipo)
+// 4.2 Predicado de tipo (Type Predicate)
+// Una función que confirma si un objeto es de un tipo específico
 // function esHeroe(objeto: any): objeto is Heroe {
 //     return (
+//         objeto !== null &&
 //         typeof objeto.nombre === "string" &&
-//         (objeto.tipo === Clase.Mago || 
-//          objeto.tipo === Clase.Guerrero || 
-//          objeto.tipo === Clase.Arquero)
+//         Object.values(Clase).includes(objeto.tipo)
 //     );
 // }
 
-// const datosRecibidos: any = { nombre: "Aragorn", tipo: "GUERRERO" };
-
-// if (esHeroe(datosRecibidos)) {
-//     // ✨ Aquí adentro, TypeScript sabe que datosRecibidos es Heroe
-//     console.log(datosRecibidos.tipo); 
-// } else {
-//     console.log("Los datos no tienen el formato de un héroe");
-// }
-
-// //ejercicio 
-// interface Estadisticas {
-//     hp: number;
-// }
-
-// function esEstadistica(obj: any): obj is Estadisticas {
-//     return (
-//             typeof obj.hp ==="number"
-//     );
-// }
-
+// 4.3 Instanceof (Narrowing para clases y elementos del DOM)
+const elemento = document.getElementById("mi-id");
+if (elemento instanceof HTMLInputElement) {
+    // Aquí TS habilita propiedades específicas de inputs
+    console.log(elemento.value);
+}
