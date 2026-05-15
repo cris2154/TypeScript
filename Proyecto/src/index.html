@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Reproductor Web</title>
+    <!-- El archivo CSS final procesado por Tailwind -->
+    <link rel="stylesheet" href="../dist/css/estilos.css">
+</head>
+<body id="fondo-reproductor" class="bg-gradient-to-br from-gray-900 to-black text-white min-h-screen transition-all duration-500 ease-in-out">
+
+    <div class="container mx-auto p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- 🎵 COLUMNA 1 y 2: El Reproductor Principal -->
+        <main class="md:col-span-2 bg-gray-800/50 backdrop-blur-md p-6 rounded-2xl border border-gray-700 flex flex-col items-center justify-center space-y-6">
+            
+            <!-- Zona de la Carátula -->
+            <div class="w-64 h-64 bg-gray-700 rounded-xl overflow-hidden shadow-2xl flex items-center justify-center border border-gray-600">
+                <img id="caratula-actual" src="" alt="Carátula" class="w-full h-full object-cover hidden">
+                <span id="sin-caratula" class="text-gray-400 text-5xl">🎵</span>
+            </div>
+
+            <!-- Información y Controles de Audio -->
+            <div class="text-center w-full">
+                <h2 id="titulo-actual" class="text-2xl font-bold truncate">Ninguna canción seleccionada</h2>
+                <audio id="control-audio" controls class="w-full mt-4 accent-emerald-500"></audio>
+            </div>
+
+            <!-- Panel de Control (Subir y Buscar) -->
+            <div class="w-full grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-gray-700">
+                <div>
+                    <label class="block text-sm font-medium text-gray-400 mb-1">Agregar Música (.mp3)</label>
+                    <input type="file" id="input-archivo" accept="audio/*" class="block w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-emerald-500 file:text-white hover:file:bg-emerald-600 cursor-pointer">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-400 mb-1">Cambiar Fondo (Color/URL)</label>
+                    <input type="text" id="input-fondo" placeholder="Ej: #ff0000 o URL de imagen" class="w-full bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-emerald-500">
+                </div>
+            </div>
+
+        </main>
+
+        <!-- 📜 COLUMNA 3: Lista de Reproducción -->
+        <aside class="bg-gray-800/40 backdrop-blur-md p-6 rounded-2xl border border-gray-700 flex flex-col">
+            <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+                <span>📋</span> Lista de Reproducción
+            </h3>
+            <!-- Contenedor donde TypeScript insertará las canciones -->
+            <ul id="lista-canciones" class="space-y-2 overflow-y-auto max-h-[500px] pr-2">
+                <!-- Las canciones se generarán dinámicamente aquí -->
+            </ul>
+        </aside>
+
+    </div>
+
+    <!-- El script principal de TypeScript compilado -->
+    <script type="module" src="../dist/js/index.js"></script>
+</body>
+</html>
